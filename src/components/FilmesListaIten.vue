@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { eventBus } from "./../main.js";
+
 export default {
 	props: {
 		filme: {
@@ -18,8 +20,8 @@ export default {
 	},
 	methods: {
 		selecionar: function() {
-			console.log(this.filme.titulo);
-			this.$emit("selecionarFilme", this.filme);
+			//this.$emit("selecionarFilme", this.filme);
+			eventBus.$emit("selecionarFilme", this.filme);
 		}
 	}
 };

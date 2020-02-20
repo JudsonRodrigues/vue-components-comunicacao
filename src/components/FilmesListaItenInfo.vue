@@ -14,9 +14,20 @@
 </template>
 
 <script>
+import { eventBus } from "./../main.js";
+
 export default {
-	props: {
-		filme: Object
+	// props: {
+	// 	filme: Object
+	// }
+
+	data() {
+		return { filme: undefined };
+	},
+	created() {
+		eventBus.$on("selecionarFilme", filmeSelecionado => {
+			this.filme = filmeSelecionado;
+		});
 	}
 };
 </script>
