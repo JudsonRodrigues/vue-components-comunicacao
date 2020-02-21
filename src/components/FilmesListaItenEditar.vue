@@ -48,11 +48,17 @@ export default {
 				});
 			},
 			get() {
-				// eslint-disable-next-line vue/no-side-effects-in-computed-properties
-				return (this.filmeLocal = this.filme);
+				return this.filme;
 			}
 		}
 	},
+
+	watch: {
+		filme(novoFilme) {
+			this.filmeLocal = Object.assign({}, novoFilme);
+		}
+	},
+
 	methods: {
 		salvarFilme() {
 			eventBus.atualizarFilme(this.filmeLocal);
