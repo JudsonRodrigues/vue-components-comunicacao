@@ -1,7 +1,4 @@
 <template>
-	<!-- <div>
-		<input type="text" :value="titulo" :placeholder="$attrs.placeholder" />
-	</div>-->
 	<li class="list-group-item">
 		<span>{{filme.titulo}} | {{filme.ano}}</span>
 		<button @click="selecionar()" class="btn btn-secondary float-right">Selecionar</button>
@@ -20,8 +17,9 @@ export default {
 	},
 	methods: {
 		selecionar: function() {
-			//this.$emit("selecionarFilme", this.filme);
-			eventBus.$emit("selecionarFilme", this.filme);
+			//eventBus.$emit("selecionarFilme", this.filme);
+
+			eventBus.selecionarFilme(this.filme);
 		}
 	}
 };

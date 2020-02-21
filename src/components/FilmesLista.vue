@@ -16,19 +16,25 @@
 		</div>
 		<!-- coluna 2 -->
 		<div class="col-4">
-			<FilmesListaItenInfo :filme="filmeSelecionado" />
+			<FilmesListaItenInfo v-if="!editar" :filme="filmeSelecionado" @editarFilme="editarFilme" />
+
+			<FilmesListaItenEditar v-else :filme="filmeSelecionado" />
 		</div>
 	</div>
 </template>
 
 <script>
+import { eventBus } from "./../main.js";
+
 import FilmesListaIten from "./FilmesListaIten.vue";
 import FilmesListaItenInfo from "./FilmesListaItenInfo.vue";
+import FilmesListaItenEditar from "./FilmesListaItenEditar.vue";
 
 export default {
 	components: {
 		FilmesListaIten,
-		FilmesListaItenInfo
+		FilmesListaItenInfo,
+		FilmesListaItenEditar
 	},
 	data() {
 		return {
@@ -49,7 +55,8 @@ export default {
 				{ id: 4, titulo: "Deadpool", ano: 2018, diretor: "Stan Lee" },
 				{ id: 5, titulo: "Superman DC", ano: 2018, diretor: "Stan Lee" }
 			],
-			filmeSelecionado: undefined
+			filmeSelecionado: undefined,
+			editar: false
 		};
 	},
 
@@ -59,7 +66,17 @@ export default {
 				active:
 					this.filmeSelecionado && this.filmeSelecionado.id === filmeIterado.id
 			};
+		},
+		editarFilme(filme) {
+			this.editar = true;
+			this.filmeSelecionado = filme;
 		}
+	},
+
+	created() {
+		eventBus.$on("selecionarFilme", filmeSelecionado => {
+			this.filmeSelecionado = filmeSelecionado;
+		});
 	}
 };
 </script>
